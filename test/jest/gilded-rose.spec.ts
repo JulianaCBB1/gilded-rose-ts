@@ -1,4 +1,4 @@
-import { AgedBrie, BackstagePasses, ManagedItem, Sulfuras } from '@/item-types';
+import { AgedBrie, BackstagePasses, Conjured, ManagedItem, Sulfuras } from '@/item-types';
 import { Item, GildedRose } from '../../app/gilded-rose';
 
 describe('Gilded Rose', () => {
@@ -98,6 +98,29 @@ describe('Gilded Rose', () => {
       items.push(new BackstagePasses('Backstage passes to a TAFKAL80ETC concert', 5, 49));
       gildedRose.updateQuality();
       expect(items[0].quality).toBe(50);
+      expect(items[0].sellIn).toBe(4);
+    });
+  });
+
+  describe('Conjured items', () => {
+    it('degrades by 2 when sellin > 0', () => {
+      items.push(new Conjured('Conjured', 10, 20));
+      gildedRose.updateQuality();
+      expect(items[0].quality).toBe(18);
+      expect(items[0].sellIn).toBe(9);
+    });
+
+    it('degrades by 4 when sellin == 0', () => {
+      items.push(new Conjured('Conjured', 0, 20));
+      gildedRose.updateQuality();
+      expect(items[0].quality).toBe(16);
+      expect(items[0].sellIn).toBe(-1);
+    });
+
+    it('quality never goes negative', () => {
+      items.push(new Conjured('Conjured', 5, 0));
+      gildedRose.updateQuality();
+      expect(items[0].quality).toBe(0);
       expect(items[0].sellIn).toBe(4);
     });
   });
