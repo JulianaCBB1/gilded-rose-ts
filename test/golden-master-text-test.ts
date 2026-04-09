@@ -1,4 +1,4 @@
-import { ManagedItem, AgedBrie, Sulfuras, Conjured, BackstagePasses } from '@/item-types';
+import { ManagedItem, AgedBrie, Sulfuras, Conjured, BackstagePasses } from '../app/item-types';
 import { GildedRose } from '../app/gilded-rose';
 
 console.log('OMGHAI!');
@@ -17,6 +17,9 @@ const items = [
 
 const gildedRose = new GildedRose(items);
 
+const PAD_NAME = 45;
+const PAD_NUM = 8;
+
 let days: number = 2;
 if (process.argv.length > 2) {
   days = +process.argv[2];
@@ -24,9 +27,11 @@ if (process.argv.length > 2) {
 
 for (let i = 0; i < days + 1; i++) {
   console.log('-------- day ' + i + ' --------');
-  console.log('name, sellIn, quality');
+  console.log('name'.padEnd(PAD_NAME) + 'sellIn'.padEnd(PAD_NUM) + 'quality');
   items.forEach((element) => {
-    console.log(element.name + ', ' + element.sellIn + ', ' + element.quality);
+    console.log(
+      element.name.padEnd(PAD_NAME) + String(element.sellIn).padEnd(PAD_NUM) + element.quality
+    );
   });
   console.log();
   gildedRose.updateQuality();
