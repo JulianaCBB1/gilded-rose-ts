@@ -1,4 +1,5 @@
-import { Item, GildedRose } from '@/gilded-rose';
+import { GildedRose } from '@/gilded-rose';
+import { ManagedItem } from '@/item-types';
 
 /**
  * This unit test uses [Jest Snapshot](https://goo.gl/fbAQLP).
@@ -37,7 +38,7 @@ describe('Gilded Rose Approval', () => {
   });
 
   it('should foo', () => {
-    const gildedRose = new GildedRose([new Item('foo', 0, 0)]);
+    const gildedRose = new GildedRose([new ManagedItem('foo', 0, 0)]);
     const items = gildedRose.updateQuality();
 
     expect(items).toMatchSnapshot();
